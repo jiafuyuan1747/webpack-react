@@ -1,0 +1,23 @@
+{
+  "name": "webpack-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiafuyuan1747/webpack-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiafuyuan1747/webpack-react/issues"
+  },
+  "homepage": "https://github.com/jiafuyuan1747/webpack-react#readme",
+  "devDependencies": {
+    "webpack": "^4.32.2",
+    "webpack-dev-server": "^3.4.1"
+  }
+}
