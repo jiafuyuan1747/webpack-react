@@ -51,7 +51,7 @@ class Header extends React.Component{
                        type="text" onChange = {this.refreshCurTodo}
                        value = {this.state.curTodo}
                    />
-                   <input type="submit"  value="新增"/>
+                   <input type="submit"  value="新增" className= "inputadd"/>
                 </form>
                 <ul>
                     {this.state.allTodos.map(

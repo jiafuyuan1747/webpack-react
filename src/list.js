@@ -11,7 +11,7 @@ const List  = (props)=>{
                         onChange = {()=>changeTodoDone(index)}
                     />
                     <span className={item.done? "done":"notdone"}> {item.content} </span>
-                    <button onClick={()=>deleteTodo(index)}>删除</button>
+                    <button onClick={() => deleteTodo(index)} className="deletebutton">删除</button>
                 </li>
             </div>
         )

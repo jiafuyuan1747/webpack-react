@@ -7,8 +7,16 @@ module.exports={
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
-                    'css-loader'
-                ]
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            camelCase: true,
+                            modules: true,
+                            // exportLocalsStyle: 'camelCase',
+                            // hashPrefix: 'hash',
+                        }
+                    }
+                ],
             }
         ]
     },
