@@ -1,4 +1,6 @@
 import React from 'react'
+import css from './list.css'
+import { Checkbox } from 'antd'
 const List  = (props)=>{
     const {item,index,deleteTodo,changeTodoDone} = props;
     return(
@@ -6,6 +8,7 @@ const List  = (props)=>{
                 <li
                     key={index}
                 >
+                  {/*<Checkbox onChange={()=>changeTodoDone(index)}/>*/}
                     <input
                         className = "changedone"
                         type="checkbox"

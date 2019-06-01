@@ -33,9 +33,11 @@
     "webpack-dev-server": "^3.4.1"
   },
   "dependencies": {
+    "antd": "^3.19.1",
     "css-loader": "^2.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "redux": "^4.0.1",
     "style-loader": "^0.23.1"
   }
 }

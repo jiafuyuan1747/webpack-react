@@ -1,61 +1,69 @@
 import React from "react";
 import TodoList from './list'
+import {Input,Button} from "antd";
+import store from './store/index'
 class Header extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            allTodos :[{content:'第一个todo',done:false},{content:'第2个todo',done:false}],
-            curTodo:''
-        }
+        this.state = store.getState();
+        store.subscribe(this.setCurTodo);
     }
-    setCurTodo = (curTodo)=>{
-        this.setState({
-            curTodo:curTodo
-        })
-    };
-
-    setAllTodos = (allTodos)=>{
-        this.setState({
-            allTodos,
-            curTodo:''
-        });
+    setCurTodo = ()=>{
+        this.setState(
+            store.getState()
+        );
     };
     addTodo = () => {
-        this.setAllTodos([
-            ...this.state.allTodos,
-            {
-                content: this.state.curTodo,
-                done: false,
-            },
-        ]);
+        const action = {
+            type: 'add_todo'
+        };
+        store.dispatch(action);
+        // this.setAllTodos([
+        //     ...this.state.allTodos,
+        //     {
+        //         content: this.state.curTodo,
+        //         done: false,
+        //     },
+        // ]);
         // event.preventDefault();
     };
     refreshCurTodo = (event)=>{
-        this.setCurTodo(event.target.value);
+        const action = {
+            type: 'refresh_curTodo',
+            value: event.target.value
+        };
+        store.dispatch(action);
         // event.preventDefault();
     };
     deleteTodo = (index) => {
-        const listTemp = [...this.state.allTodos];
-        listTemp.splice(index, 1);
-        this.setAllTodos(listTemp);
+        const action = {
+            type: 'delete_todo',
+            index: index
+        };
+        store.dispatch(action);
     };
-
     changeTodoDone = (index) => {
-        const listTemp = [...this.state.allTodos];
-        listTemp[index].done = !listTemp[index].done;
-        this.setAllTodos(listTemp);
+        const action  = {
+            type: 'change_todo_done',
+            index: index
+        };
+        store.dispatch(action);
     };
 
     render() {
         return(
             <div>
                 <div>
-                   <input
-                       type="text"
-                       onChange={this.refreshCurTodo}
-                       value = {this.state.curTodo}
-                   />
-                    <button type="submit" className="input-add" onClick={this.addTodo}>新增</button>
+                    <Input
+                      placeholder="What is your main focus for today?"
+                      onChange={this.refreshCurTodo}
+                      value = {this.state.curTodo}
+                      type="text"
+                      // style={{marginRight: spacing + 'em'}}
+                      style = {{width: '270px',height: '25px',marginRight:'10px'}}
+                    />
+                    <Button type="primary" className="input-add" onClick={this.addTodo}>newtodo</Button>
+                    {/*<Button type="primary" className="input-add" onClick={this.addTodo}>新增</Button>*/}
                 </div>
                 <ul>
                     {this.state.allTodos.map(
