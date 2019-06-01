@@ -4,7 +4,7 @@ class Header extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            allTodos :[{content:'第一个todo',done:false}],
+            allTodos :[{content:'第一个todo',done:false},{content:'第2个todo',done:false}],
             curTodo:''
         }
     }
@@ -13,56 +13,60 @@ class Header extends React.Component{
             curTodo:curTodo
         })
     };
-    setAllTodos = (x)=>{
+
+    setAllTodos = (allTodos)=>{
         this.setState({
-            allTodos: x,
+            allTodos,
             curTodo:''
         });
     };
-    AddTodo = (event)=>{
-        let listTem = [...this.state.allTodos];
-        let newTodo = {
-            content: this.state.curTodo,
-            done: false
-        };
-        listTem = listTem.concat(newTodo);
-        this.setAllTodos(listTem);
-        event.preventDefault();
+    addTodo = () => {
+        this.setAllTodos([
+            ...this.state.allTodos,
+            {
+                content: this.state.curTodo,
+                done: false,
+            },
+        ]);
+        // event.preventDefault();
     };
     refreshCurTodo = (event)=>{
         this.setCurTodo(event.target.value);
-        event.preventDefault();
+        // event.preventDefault();
     };
-    deleteTodo = (index)=>{
-        let listTemp = [...this.state.allTodos];
-        listTemp.splice(index,1);
+    deleteTodo = (index) => {
+        const listTemp = [...this.state.allTodos];
+        listTemp.splice(index, 1);
         this.setAllTodos(listTemp);
     };
-    changeTodoDone =(index) => {
-        let listTemp = [...this.state.allTodos];
-        listTemp[index].done = ! listTemp[index].done;
+
+    changeTodoDone = (index) => {
+        const listTemp = [...this.state.allTodos];
+        listTemp[index].done = !listTemp[index].done;
         this.setAllTodos(listTemp);
     };
+
     render() {
         return(
-            <div >
-                <form onSubmit={this.AddTodo} >
+            <div>
+                <div>
                    <input
-                       type="text" onChange = {this.refreshCurTodo}
+                       type="text"
+                       onChange={this.refreshCurTodo}
                        value = {this.state.curTodo}
                    />
-                   <input type="submit"  value="新增" className= "inputadd"/>
-                </form>
+                    <button type="submit" className="input-add" onClick={this.addTodo}>新增</button>
+                </div>
                 <ul>
                     {this.state.allTodos.map(
                         (item, index)=>{
                             return (
                                 <TodoList
-                                    key = {index}
-                                    item = {item}
-                                    index = {index}
-                                    deleteTodo = {this.deleteTodo}
-                                    changeTodoDone = {this.changeTodoDone}
+                                    key={index}
+                                    item={item}
+                                    index={index}
+                                    deleteTodo={this.deleteTodo}
+                                    changeTodoDone={this.changeTodoDone}
                                 />
                             )
                           }

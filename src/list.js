@@ -7,6 +7,7 @@ const List  = (props)=>{
                     key={index}
                 >
                     <input
+                        className = "changedone"
                         type="checkbox"
                         onChange = {()=>changeTodoDone(index)}
                     />
