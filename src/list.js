@@ -1,23 +1,62 @@
 import React from 'react'
-import css from './list.css'
-import { Checkbox } from 'antd'
-const List  = (props)=>{
-    const {item,index,deleteTodo,changeTodoDone} = props;
-    return(
-            <div>
+import store from './store/index'
+import {renderedDive} from "enzyme/src/Utils";
+class List extends React.Component{
+  constructor(props){
+    super (props);
+    this.state = store.getState();
+    store.subscribe(this.setCurTodo);
+  }
+  setCurTodo = ()=>{
+    this.setState(
+      store.getState()
+    );
+  };
+  deleteTodo = (index) => {
+    const action = {
+      type: 'delete_todo',
+      index: index
+    };
+    store.dispatch(action);
+  };
+  changeTodoDone = (index) => {
+    const action  = {
+      type: 'change_todo_done',
+      index: index
+    };
+    store.dispatch(action);
+  };
+
+  render(){
+    console.log(this);
+    return (
+      <div>
+      <ul>
+        {this.state.allTodos.map(
+          (item, index)=>{
+            return(
+              <div>
                 <li
-                    key={index}
+                  key={index}
                 >
-                  {/*<Checkbox onChange={()=>changeTodoDone(index)}/>*/}
-                    <input
-                        className = "changedone"
-                        type="checkbox"
-                        onChange = {()=>changeTodoDone(index)}
-                    />
-                    <span className={item.done? "done":"notdone"}> {item.content} </span>
-                    <button onClick={() => deleteTodo(index)} className="deletebutton">删除</button>
+                  <input
+                    className = "change-done"
+                    type="checkbox"
+                    onChange = {() => this.changeTodoDone(index)}
+                  />
+                  <span className={item.done?"done":""}> {item.content} </span>
+                  <button onClick={() =>this.deleteTodo(index)} className="delete-button">删除</button>
                 </li>
-            </div>
+              </div>
+            )
+          }
         )
-};
+        }
+      </ul>
+      </div>
+    )
+  }
+
+}
+
 export default List

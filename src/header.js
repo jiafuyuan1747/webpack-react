@@ -1,5 +1,5 @@
 import React from "react";
-import TodoList from './list'
+
 import {Input,Button} from "antd";
 import store from './store/index'
 class Header extends React.Component{
@@ -35,20 +35,20 @@ class Header extends React.Component{
         store.dispatch(action);
         // event.preventDefault();
     };
-    deleteTodo = (index) => {
-        const action = {
-            type: 'delete_todo',
-            index: index
-        };
-        store.dispatch(action);
-    };
-    changeTodoDone = (index) => {
-        const action  = {
-            type: 'change_todo_done',
-            index: index
-        };
-        store.dispatch(action);
-    };
+    // deleteTodo = (index) => {
+    //     const action = {
+    //         type: 'delete_todo',
+    //         index: index
+    //     };
+    //     store.dispatch(action);
+    // };
+    // changeTodoDone = (index) => {
+    //     const action  = {
+    //         type: 'change_todo_done',
+    //         index: index
+    //     };
+    //     store.dispatch(action);
+    // };
 
     render() {
         return(
@@ -63,24 +63,7 @@ class Header extends React.Component{
                       style = {{width: '270px',height: '25px',marginRight:'10px'}}
                     />
                     <Button type="primary" className="input-add" onClick={this.addTodo}>newtodo</Button>
-                    {/*<Button type="primary" className="input-add" onClick={this.addTodo}>新增</Button>*/}
                 </div>
-                <ul>
-                    {this.state.allTodos.map(
-                        (item, index)=>{
-                            return (
-                                <TodoList
-                                    key={index}
-                                    item={item}
-                                    index={index}
-                                    deleteTodo={this.deleteTodo}
-                                    changeTodoDone={this.changeTodoDone}
-                                />
-                            )
-                          }
-                      )
-                    }
-                </ul>
             </div>
         )
     }

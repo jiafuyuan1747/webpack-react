@@ -8,7 +8,7 @@ describe('<Header />', () => {
         const currentCount = wrapper.state().allTodos.length;
         // expect(currentCount).toBe(1);
         // expect(wrapper.find('.inputadd')).toHaveLength(1);
-        wrapper.find('.inputadd').simulate('click');
+        wrapper.find('.input-add').at(0).simulate('click');
         expect(wrapper.state().allTodos.length).toBe(currentCount + 1);
     });
 
@@ -16,13 +16,13 @@ describe('<Header />', () => {
         const  wrapper = mount(<Header />);
         const currentCount = wrapper.state().allTodos.length;
         const index = 0;
-        wrapper.find('.deletebutton').at(index).simulate('click');
+        wrapper.find('.delete-button').at(index).simulate('click');
         expect(wrapper.state().allTodos.length).toBe(currentCount - 1);
     });
     it('donechangetest', () => {
         const wrapper = mount(<Header />);
-        const index = 1 ;
-        wrapper.find('.changedone').at(index).simulate('change');
+        const index = 0 ;
+        wrapper.find('.change-done').at(index).simulate('change');
         //要找到某一个input 对这一个input进行检查
 
         expect(wrapper.state().allTodos[index].done).toBe(true);
