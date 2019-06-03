@@ -1,20 +1,20 @@
-import React from 'react'
-import css from './title.css'
-import store from "./store";
+import React from 'react';
+import css from './title.css';
+import store from './store';
 
-class Title extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = store.getState();
-    }
-    render(){
-        console.log(this.state);
-        return (
-            <div className={css.title}>
-                <h1> Todos</h1>
+class Title extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = store.getState();
+  }
 
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className={css.title}>
+        <h1> Todos</h1>
+
+      </div>
+    );
+  }
 }
-export default Title
+export default Title;

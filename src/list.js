@@ -1,38 +1,13 @@
 import React from 'react'
-import store from './store/index'
-import {renderedDive} from "enzyme/src/Utils";
-class List extends React.Component{
-  constructor(props){
-    super (props);
-    this.state = store.getState();
-    store.subscribe(this.setCurTodo);
-  }
-  setCurTodo = ()=>{
-    this.setState(
-      store.getState()
-    );
-  };
-  deleteTodo = (index) => {
-    const action = {
-      type: 'delete_todo',
-      index: index
-    };
-    store.dispatch(action);
-  };
-  changeTodoDone = (index) => {
-    const action  = {
-      type: 'change_todo_done',
-      index: index
-    };
-    store.dispatch(action);
-  };
+import {connect} from "react-redux";
 
+class List extends React.Component{
   render(){
-    console.log(this);
+    const {allTodos,changeTodoDone,deleteTodo } = this.props;
     return (
       <div>
       <ul>
-        {this.state.allTodos.map(
+        {this.props.allTodos.map(
           (item, index)=>{
             return(
               <div>
@@ -42,21 +17,33 @@ class List extends React.Component{
                   <input
                     className = "change-done"
                     type="checkbox"
-                    onChange = {() => this.changeTodoDone(index)}
+                    onChange = {this.props.changeTodoDone.bind(index)}
                   />
-                  <span className={item.done?"done":""}> {item.content} </span>
-                  <button onClick={() =>this.deleteTodo(index)} className="delete-button">删除</button>
+                  <span className={item.done?"done":"" }> {item.content} </span>
+                  <button onClick={() =>this.props.deleteTodo(index)} className="delete-button">删除</button>
                 </li>
               </div>
-            )
-          }
-        )
-        }
+            )})}
       </ul>
       </div>
     )
   }
-
 }
-
-export default List
+const mapStateToProps = (state) => {
+  return{
+    allTodos: state.allTodos
+  }
+};
+const mapDispatchToProps= (dispatch) => {
+  return {
+    changeTodoDone: (index)=>dispatch({
+      type: 'change_todo_done',
+      index: index
+    }),
+    deleteTodo: (index) => dispatch({
+      type:'delete_todo',
+      index: index
+    })
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(List)
